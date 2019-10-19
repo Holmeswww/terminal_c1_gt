@@ -2,6 +2,8 @@
 
 These guides assume that your working directory is the root of this repository.
 
+The one with the ihgest elo ended up being `algo_strategy_wang5.py` even though it didn't include all of our desired features
+
 #### Creating your algo
 
 Once you have selected one of the supported algo languages within this repository, such as `python-algo` 
