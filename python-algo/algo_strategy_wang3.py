@@ -89,42 +89,42 @@ class AlgoStrategy(gamelib.AlgoCore):
         destructors_points = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
         filters_points = [[3, 13], [24, 13], [6, 12], [21, 12], [9, 11], [18, 11], [12, 10], [15, 10]]
         encryptors_points = []
-        game_state.attempt_spawn(FILTER, filter_points)
-        game_state.attempt_spawn(DESTRUCTOR, destructor_points)
-        game_state.attempt_spawn(ENCRYPTOR, encryptor_points)
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
         # def_2
         destructors_points = [[1, 12], [2, 12], [25, 12], [26, 12], [7, 11], [20, 11], [10, 10], [17, 10]]
         filters_points = [[0, 13], [1, 13], [26, 13], [27, 13]]
-        game_state.attempt_spawn(FILTER, filter_points)
-        game_state.attempt_spawn(DESTRUCTOR, destructor_points)
-        game_state.attempt_spawn(ENCRYPTOR, encryptor_points)
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
         # def_3
         destructors_points = [[4, 12], [23, 12], [8, 11], [19, 11], [13, 9], [14, 9]]
         filters_points = [[2, 13], [4, 13], [23, 13], [25, 13], [7, 12], [20, 12]]
-        game_state.attempt_spawn(FILTER, filter_points)
-        game_state.attempt_spawn(DESTRUCTOR, destructor_points)
-        game_state.attempt_spawn(ENCRYPTOR, encryptor_points)
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
         # def_4
         destructors_points = [[2, 11], [3, 11], [24, 11], [25, 11], [6, 10], [7, 10], [8, 10], [19, 10], [20, 10], [21, 10], [10, 9], [17, 9], [12, 8], [15, 8]]
         filters_points = [[8, 12], [19, 12], [10, 11], [17, 11], [13, 10], [14, 10]]
-        game_state.attempt_spawn(FILTER, filter_points)
-        game_state.attempt_spawn(DESTRUCTOR, destructor_points)
-        game_state.attempt_spawn(ENCRYPTOR, encryptor_points)
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
         # def_5
         encryptors_points = [[6, 9], [7, 9], [20, 9], [21, 9], [7, 8], [10, 8], [17, 8], [20, 8], [8, 7], [10, 7], [12, 7], [15, 7], [17, 7], [19, 7], [10, 6], [12, 6], [15, 6], [17, 6]]
-        game_state.attempt_spawn(FILTER, filter_points)
-        game_state.attempt_spawn(DESTRUCTOR, destructor_points)
-        game_state.attempt_spawn(ENCRYPTOR, encryptor_points)
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
         # def_6
         destructors_points = [[4, 11], [23, 11], [3, 10], [4, 10], [23, 10], [24, 10], [4, 9], [8, 9], [9, 9], [18, 9], [19, 9], [23, 9], [8, 8], [9, 8], [13, 8], [14, 8], [18, 8], [19, 8], [9, 7], [18, 7], [9, 6], [18, 6]]
-        game_state.attempt_spawn(FILTER, filter_points)
-        game_state.attempt_spawn(DESTRUCTOR, destructor_points)
-        game_state.attempt_spawn(ENCRYPTOR, encryptor_points)
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
     def stall_with_scramblers(self, game_state):
         for location in self.scored_on_locations:
