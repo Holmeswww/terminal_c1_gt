@@ -69,21 +69,12 @@ class AlgoStrategy(gamelib.AlgoCore):
         # Sending more at once is better since attacks can only hit a single ping at a time
         if game_state.get_resource(BITS, 0) > 15:
             # To simplify we will just check sending them from back left and right
-            ping_spawn_location_options = [[14, 0]]
-            best_location = self.least_damage_spawn_location(game_state, ping_spawn_location_options)
-            game_state.attempt_spawn(PING, best_location, 1000)
+            ping_locs = [[2,11],[3,10],[4,9],[5,8],[6,7],[7,6],[8,5], [9,4], [10, 3], [11, 2], [25,11],[24,10],[23,9],[22,8],[21,7],[20,6], [19,5], [18,4], [17,3],[16,2],[15,1]]
+            best_ping_loc = self.least_damage_spawn_location(game_state, ping_locs)
+            game_state.attempt_spawn(PING, best_ping_loc, 1000)
 
     def build_defences(self, game_state):
-        '''
-        # Brian Defense
-        destructor_locations = [[0, 13], [27, 13], [1, 12], [26, 12]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        
-        filter_locations = [[1,13], [26,13]]
-        game_state.attempt_spawn(FILTER, filter_locations)
-        '''
-
-        # Wang Defense Formation
+        # Wang Defense Formation 5
 
         # def_1
         destructors_points = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
@@ -116,15 +107,24 @@ class AlgoStrategy(gamelib.AlgoCore):
 
         # def_5
         destructors_points = [[4, 11], [23, 11], [4, 10], [23, 10], [6, 9], [9, 9], [18, 9], [21, 9], [10, 8], [13, 8], [14, 8], [17, 8]]
-        game_state.attempt_spawn(FILTER, filters_points)
+        # game_state.attempt_spawn(FILTER, filters_points)
         game_state.attempt_spawn(DESTRUCTOR, destructors_points)
         ##game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
         # def_6
-        encryptors_points = [[11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [18, 5], [11, 4], [18, 4], [11, 3], [13, 3], [14, 3], [15, 3], [16, 3], [17, 3], [11, 2], [15, 2], [12, 1], [13, 1], [15, 1], [13, 0]]
-        game_state.attempt_spawn(FILTER, filters_points)
-        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
-        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
+        if game_state.get_resource(CORES, 0) > 6:
+            encryptors_points = [[13, 0], [15, 1], [13, 1], [15, 2], [14, 3], [13, 3], [12, 3], [10, 3], [10, 4], [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [18, 5]]
+            # game_state.attempt_spawn(FILTER, filters_points)
+            # game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+            game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
+
+        # def_7
+        if game_state.get_resource(CORES, 0) > 10:
+            encryptors_points = [[18, 4], [17, 3], [10, 5], [12, 1], [16, 3], [15, 3]]
+            # game_state.attempt_spawn(FILTER, filters_points)
+            # game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+            game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
+
 
     def stall_with_scramblers(self, game_state):
         for loc in list(self.scored_on_locations):
@@ -191,10 +191,11 @@ class AlgoStrategy(gamelib.AlgoCore):
         for location in location_options:
             path = game_state.find_path_to_edge(location)
             damage = 0
-            for path_location in path:
-                # Get number of enemy destructors that can attack the final location and multiply by destructor damage
-                damage += len(game_state.get_attackers(path_location, 0)) * gamelib.GameUnit(DESTRUCTOR, game_state.config).damage
-            damages.append(damage)
+            if path is not None:
+                for path_location in path:
+                    # Get number of enemy destructors that can attack the final location and multiply by destructor damage
+                    damage += len(game_state.get_attackers(path_location, 0)) * gamelib.GameUnit(DESTRUCTOR, game_state.config).damage
+                damages.append(damage)
         
         # Now just return the location that takes the least damage
         return location_options[damages.index(min(damages))]
