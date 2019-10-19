@@ -71,7 +71,8 @@ class AlgoStrategy(gamelib.AlgoCore):
             # To simplify we will just check sending them from back left and right
             ping_locs = [[2,11],[3,10],[4,9],[5,8],[6,7],[7,6],[8,5], [9,4], [10, 3], [11, 2], [25,11],[24,10],[23,9],[22,8],[21,7],[20,6], [19,5], [18,4], [17,3],[16,2],[15,1]]
             best_ping_loc = self.least_damage_spawn_location(game_state, ping_locs)
-            game_state.attempt_spawn(PING, best_ping_loc, 1000)
+            pings = game_state.attempt_spawn(PING, best_ping_loc, 1000)
+            #gamelib.debug_write("Ping: {}".format(pings))
 
     def build_defences(self, game_state):
         # Wang Defense Formation 5
@@ -127,16 +128,32 @@ class AlgoStrategy(gamelib.AlgoCore):
 
 
     def stall_with_scramblers(self, game_state):
+        left_scrambler_spawn = [5, 8]
+        right_scrambler_spawn = [22,8]
+
+        left_count = 0
+        right_count = 0
+        '''
         for loc in list(self.scored_on_locations):
             gamelib.debug_write("Scrambler Location: {}".format(loc))
-            
-            # send a scrambler for every 3 enemy num of bits
-            num_scramblers = (int) (game_state.get_resource(BITS, 1))//3
-            gamelib.debug_write("NumScrams: {}".format(num_scramblers))
-            for i in range(0, num_scramblers):
-                # Build destructor one space above so that it doesn't block our own edge spawn locations
-                game_state.attempt_spawn(SCRAMBLER, [loc[0], loc[1]])
-            
+
+            # Build destructor one space above so that it doesn't block our own edge spawn locations
+            if loc[0] > 13:
+                left_count = left_count + 1
+            else:
+                right_count = right_count + 1
+        '''        
+        # send a scrambler for every 3 enemy num of bits
+        left_num_scramblers = (int) (game_state.get_resource(BITS, 1))//3
+        gamelib.debug_write("Left NumScrams: {}".format(left_num_scramblers))
+        right_num_scramblers = (int) (game_state.get_resource(BITS, 1))//3
+        gamelib.debug_write("Right NumScrams: {}".format(right_num_scramblers))
+
+        for i in range(0, left_num_scramblers):
+            game_state.attempt_spawn(SCRAMBLER, left_scrambler_spawn)
+
+        for i in range(0, right_num_scramblers):
+            game_state.attempt_spawn(SCRAMBLER, right_scrambler_spawn)
             
         '''
         # We can spawn moving units on our edges so a list of all our edge locations
