@@ -83,7 +83,7 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.attempt_spawn(FILTER, filter_locations)
         '''
 
-        # Wang Defense Formation
+        # Wang Defense Formation 3
 
         # def_1
         destructors_points = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]

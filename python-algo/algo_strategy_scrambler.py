@@ -64,14 +64,14 @@ class AlgoStrategy(gamelib.AlgoCore):
     def starter_strategy(self, game_state):
         self.build_defences(game_state)
         
+        self.stall_with_scramblers(game_state)
+
         # Sending more at once is better since attacks can only hit a single ping at a time
         if game_state.get_resource(BITS, 0) > 15:
             # To simplify we will just check sending them from back left and right
             ping_spawn_location_options = [[11, 2]]
             best_location = self.least_damage_spawn_location(game_state, ping_spawn_location_options)
             game_state.attempt_spawn(PING, best_location, 1000)
-        else:
-            self.stall_with_scramblers(game_state)
         # Lastly, if we have spare cores, let's build some Encryptors to boost our Pings' health.
         encryptor_locations = [[13, 0], [14, 0], [12, 1], [13, 1], [14, 1], [15, 1]]
         game_state.attempt_spawn(ENCRYPTOR, encryptor_locations)
@@ -86,53 +86,62 @@ class AlgoStrategy(gamelib.AlgoCore):
         game_state.attempt_spawn(FILTER, filter_locations)
         '''
 
-        # Wang Defense Formation 1
-        destructor_locations = [[3, 11], [24, 11], [6, 10], [21, 10], [9, 9], [18, 9], [12, 8], [15, 8]]
-        filter_locations = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
+        # Wang Defense Formation 3
 
-        destructor_locations = [[2, 12], [25, 12], [3, 11], [24, 11], [6, 10], [7, 10], [20, 10], [21, 10], [9, 9], [10, 9], [17, 9], [18, 9], [12, 8], [15, 8]]
-        filter_locations = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
+        # def_1
+        destructors_points = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
+        filters_points = [[3, 13], [24, 13], [6, 12], [21, 12], [9, 11], [18, 11], [12, 10], [15, 10]]
+        encryptors_points = []
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        #game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
-        destructor_locations = [[2, 12], [25, 12], [3, 11], [24, 11], [6, 10], [7, 10], [20, 10], [21, 10], [9, 9], [10, 9], [17, 9], [18, 9], [12, 8], [13, 8], [14, 8], [15, 8]]
-        blue_encryptors_points = [[0, 13], [1, 13], [26, 13], [27, 13], [4, 11], [5, 11], [22, 11], [23, 11], [8, 10], [19, 10]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
+        # def_2
+        destructors_points = [[1, 12], [2, 12], [25, 12], [26, 12], [7, 11], [20, 11], [10, 10], [17, 10]]
+        filters_points = [[0, 13], [1, 13], [26, 13], [27, 13]]
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        #game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
-        filter_locations = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
-        destructor_locations = [[1, 12], [2, 12], [25, 12], [26, 12], [3, 11], [24, 11], [5, 10], [6, 10], [7, 10], [20, 10], [21, 10], [22, 10], [8, 9], [9, 9], [10, 9], [17, 9], [18, 9], [19, 9], [12, 8], [13, 8], [14, 8], [15, 8]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
+        # def_3
+        destructors_points = [[4, 12], [23, 12], [8, 11], [19, 11], [13, 9], [14, 9]]
+        filters_points = [[2, 13], [4, 13], [23, 13], [25, 13], [7, 12], [20, 12]]
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        #game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
-        blue_encryptors_points = [[0, 13], [1, 13], [26, 13], [27, 13], [4, 11], [5, 11], [22, 11], [23, 11], [8, 10], [19, 10]]
-        filter_locations = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
+        # def_4
+        destructors_points = [[2, 11], [3, 11], [24, 11], [25, 11], [6, 10], [7, 10], [8, 10], [19, 10], [20, 10], [21, 10], [10, 9], [17, 9], [12, 8], [15, 8]]
+        filters_points = [[8, 12], [19, 12], [10, 11], [17, 11], [13, 10], [14, 10]]
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        #game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
-        destructor_locations = [[1, 12], [2, 12], [25, 12], [26, 12], [2, 11], [3, 11], [24, 11], [25, 11], [5, 10], [6, 10], [7, 10], [20, 10], [21, 10], [22, 10], [8, 9], [9, 9], [10, 9], [17, 9], [18, 9], [19, 9], [9, 8], [10, 8], [12, 8], [13, 8], [14, 8], [15, 8], [17, 8], [18, 8]]
-        blue_encryptors_points = [[0, 13], [1, 13], [26, 13], [27, 13], [4, 11], [5, 11], [22, 11], [23, 11], [8, 10], [19, 10]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
+        # def_5
+        encryptors_points = [[6, 9], [7, 9], [20, 9], [21, 9], [7, 8], [10, 8], [17, 8], [20, 8], [8, 7], [10, 7], [12, 7], [15, 7], [17, 7], [19, 7], [10, 6], [12, 6], [15, 6], [17, 6]]
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
-        filter_locations = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
-        destructor_locations = [[1, 12], [2, 12], [25, 12], [26, 12], [2, 11], [3, 11], [24, 11], [25, 11], [5, 10], [6, 10], [7, 10], [20, 10], [21, 10], [22, 10], [8, 9], [9, 9], [10, 9], [17, 9], [18, 9], [19, 9], [9, 8], [10, 8], [12, 8], [13, 8], [14, 8], [15, 8], [17, 8], [18, 8], [13, 7], [14, 7]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
+        # def_6
+        destructors_points = [[4, 11], [23, 11], [3, 10], [4, 10], [23, 10], [24, 10], [4, 9], [8, 9], [9, 9], [18, 9], [19, 9], [23, 9], [8, 8], [9, 8], [13, 8], [14, 8], [18, 8], [19, 8], [9, 7], [18, 7], [9, 6], [18, 6]]
+        game_state.attempt_spawn(FILTER, filters_points)
+        game_state.attempt_spawn(DESTRUCTOR, destructors_points)
+        game_state.attempt_spawn(ENCRYPTOR, encryptors_points)
 
-        blue_encryptors_points = [[0, 13], [1, 13], [26, 13], [27, 13], [4, 11], [5, 11], [22, 11], [23, 11], [8, 10], [19, 10], [10, 7], [12, 7], [15, 7], [17, 7], [9, 6], [10, 6], [12, 6], [15, 6], [17, 6], [18, 6], [12, 5], [15, 5], [12, 4], [15, 4]]
-        filter_locations = [[3, 12], [24, 12], [6, 11], [21, 11], [9, 10], [18, 10], [12, 9], [15, 9]]
-        game_state.attempt_spawn(DESTRUCTOR, destructor_locations)
-        game_state.attempt_spawn(FILTER, filter_locations)
 
     def stall_with_scramblers(self, game_state):
         for loc in list(self.scored_on_locations):
-            for range(0, len(loc) / 3):
+            gamelib.debug_write("Scrambler Location: {}".format(loc))
+            
+            # send a scrambler for every 3 enemy num of bits
+            num_scramblers = (int) (game_state.get_resource(BITS, 1))//3
+            gamelib.debug_write("NumScrams: {}".format(num_scramblers))
+            for i in range(0, num_scramblers):
                 # Build destructor one space above so that it doesn't block our own edge spawn locations
                 game_state.attempt_spawn(SCRAMBLER, [loc[0], loc[1]])
-        
+            
+            
         '''
         # We can spawn moving units on our edges so a list of all our edge locations
         friendly_edges = game_state.game_map.get_edge_locations(game_state.game_map.BOTTOM_LEFT) + game_state.game_map.get_edge_locations(game_state.game_map.BOTTOM_RIGHT)
