@@ -10,7 +10,7 @@ Use `./scripts/test_algo_linux python-algo` to test it works.
 Use `./scripts/zipalgo_linux python-algo name_of_strat.zip` to upload.
 Testing the code requires the strategy to be named `algo_strategy.py`
 
-The one with the ihgest elo ended up being `algo_strategy_wang5.py` even though it didn't include all of our desired features
+The one with the highest elo ended up being `algo_strategy_wang5.py` even though it didn't include all of our desired features
 
 # Starter Algo
 
