@@ -4,11 +4,18 @@
 
 ## Command
 
-See main site. I use `./scripts/test_algo_linux python-algo` for linux.
-
-Testing the code requires it to be named `algo_strategy.py`
+See main site.
+I'm using Linux so these commands would be for me.
+Use `./scripts/test_algo_linux python-algo` to test it works.
+Use `./scripts/zipalgo_linux python-algo name_of_strat.zip` to upload.
+Testing the code requires the strategy to be named `algo_strategy.py`
 
 # Starter Algo
+
+## Game State Links
+https://docs.c1games.com/
+https://www.twitch.tv/videos/483165853
+
 
 ## File Overview
 
